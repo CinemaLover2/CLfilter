@@ -21,8 +21,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 join_db = JoinReqs
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))")
-
-imdb = Cinemagoer(accessSystem='s3', datasetMgr='http')
+    
+imdb = Cinemagoer()
+except Exception as e:
+    print(f"IMDB initialization failed: {e}")
+    imdb = None
 TOKENS = {}
 VERIFIED = {}
 BANNED = {}
