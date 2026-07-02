@@ -61,11 +61,12 @@ async def answer(bot, query):
     files, next_offset, total = await get_search_results(chat_id, string, file_type=file_type, max_results=10, offset=offset)
 
     for file in files:
-                title=file['file_name']
+        title=file['file_name']
         if title:
             title = title.replace("@VJ_Bots", "").strip()
         size=get_size(file['file_size'])
         f_caption=file['caption']
+
 
         if CUSTOM_FILE_CAPTION:
             try:
