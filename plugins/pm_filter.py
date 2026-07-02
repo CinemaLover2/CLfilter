@@ -1345,11 +1345,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return await query.answer('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
         files = files_
         title = files["file_name"]
-         if title:
-            title = title.replace("@VJ_Bots", "").strip()
-            size = get_size(files["file_size"])
-            f_caption = files["caption"]
-            settings = await get_settings(query.message.chat.id)
+        if title:
+           title = title.replace("@VJ_Bots", "").strip()
+        size = get_size(files["file_size"])
+        f_caption = files["caption"]
+        settings = await get_settings(query.message.chat.id)
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
