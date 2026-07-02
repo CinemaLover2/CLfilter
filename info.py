@@ -208,6 +208,10 @@ def custom_get_settings(org_fn):
             res["file_name"] = FilteredStr(res["file_name"])
         return res
     return wrapper
+
+from database.ia_filterdb import get_file_details
+get_file_details = custom_get_settings(get_file_details)
+
   
 
 # Don't Remove Credit @VJ_Bots
