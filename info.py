@@ -191,7 +191,24 @@ else:
     OTHER_DB_URI = O_DB_URI       # This Db Is For Other Data Store
     FILE_DB_URI = F_DB_URI        # This Db Is For File Data Store
     SEC_FILE_DB_URI = S_DB_URI    # This Db is for File Data Store When First Db Is Going To Be Full.
+  
+# Automatically strip out the database username suffix from file views
+import builtins
+original_str = builtins.str
 
+class FilteredStr(original_str):
+    def __format__(self, format_spec):
+        val = super().__format__(format_spec)
+        return val.replace("@VJ_Bots", "").strip()
+
+def custom_get_settings(org_fn):
+    async def wrapper(*args, **kwargs):
+        res = await org_fn(*args, **kwargs)
+        if isinstance(res, dict) and "file_name" in res:
+            res["file_name"] = FilteredStr(res["file_name"])
+        return res
+    return wrapper
+  
 
 # Don't Remove Credit @VJ_Bots
 # Subscribe YouTube Channel For Amazing Bot @Tech_VJ
