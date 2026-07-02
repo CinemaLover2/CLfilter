@@ -1344,7 +1344,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if not files_:
             return await query.answer('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
         files = files_
+        files["file_name"] = files["file_name"].replace("@VJ_Bots", "").strip()
         title = files["file_name"]
+        
         if title:
            title = title.replace("@VJ_Bots", "").strip()
         size = get_size(files["file_size"])
