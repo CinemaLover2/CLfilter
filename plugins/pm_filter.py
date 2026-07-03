@@ -1446,7 +1446,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         if title:
            title = title.replace("@VJ_Bots", "").strip()
         size = get_size(files['file_size'])
-        f_caption = files['caption']
+        f_caption = files['caption'].replace("@VJ_Bots", "") if files.get("caption") else ""
         settings = await get_settings(query.message.chat.id)
         if CUSTOM_FILE_CAPTION:
             try:
