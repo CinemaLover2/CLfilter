@@ -12,15 +12,17 @@ class script(object):
 ɪ ᴀᴍ ᴀᴅᴠᴀɴᴄᴇ ᴀɴᴅ ᴘᴏᴡᴇʀғᴜʟʟ ᴀᴜᴛᴏғɪʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴀᴍᴀᴢɪɴɢ ғᴇᴀᴛᴜʀᴇs ᴊᴜsᴛ ᴛʏᴘᴇ ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇɴ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀ 💘</b>"""
     
     HELP_TXT = """<b><blovckquote>ʜᴇʟʟᴏ {} </blockquote>
-**✨ FOLLOW THESE STEPS TO REQUEST DRAMAS & MOVIES ✨
+**✨ FOLLOW THESE STEPS TO REQUEST DRAMAS & MOVIES ✨**
 
-  1️⃣ _SEARCH THE CORRECT NAME ON GOOGLE._
-  2️⃣ _SEND THE NAME IN THE GROUP._
-  3️⃣ _USE THIS FORMAT:_
-     MOVIE NAME + YEAR 
-     EX: JOKER 2019
+1️⃣ __SEARCH THE CORRECT NAME ON GOOGLE.__
+2️⃣ __SEND THE NAME IN THE GROUP.__
+3️⃣ __USE THIS FORMAT:__
+     Movie Name + Year 
+ 
+Ex: Stree 2018,
+    RRR 2022
        
-   If No Result Is Found, Then DM Admins </b>"""
+If No Result Is Found, Then Contact Admins... You will Get Your Movie </b>"""
 
     ABOUT_TXT = """<b><blockquote>⍟───[ ᴍʏ ᴅᴇᴛᴀɪʟꜱ ]───⍟</blockquote>
     
