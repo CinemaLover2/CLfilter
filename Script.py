@@ -12,11 +12,12 @@ class script(object):
 ɪ ᴀᴍ ᴀᴅᴠᴀɴᴄᴇ ᴀɴᴅ ᴘᴏᴡᴇʀғᴜʟʟ ᴀᴜᴛᴏғɪʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴀᴍᴀᴢɪɴɢ ғᴇᴀᴛᴜʀᴇs ᴊᴜsᴛ ᴛʏᴘᴇ ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴛʜᴇɴ sᴇᴇ ᴍʏ ᴘᴏᴡᴇʀ 💘</b>"""
     
     HELP_TXT = """<b><blovckquote>ʜᴇʟʟᴏ {} </blockquote>
+    
 **✨ FOLLOW THESE STEPS TO REQUEST DRAMAS & MOVIES ✨**
 
-1️⃣ __SEARCH THE CORRECT NAME ON GOOGLE.__
-2️⃣ __SEND THE NAME IN THE GROUP.__
-3️⃣ __USE THIS FORMAT:__
+1️⃣ Search The Correct Name On GOOGLE
+2️⃣ Send The Name In Group
+3️⃣ Use This Format:
      Movie Name + Year 
  
 Ex: Stree 2018,
