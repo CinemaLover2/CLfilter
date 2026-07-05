@@ -2566,12 +2566,10 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
                     return await advantage_spell_chok(client, name, msg, reply_msg, ai_search)
                 else:
                     return await reply_msg.edit_text(f"**⚠️ No File Found For Your Query - {name}**\n**Make Sure Spelling Is Correct.**")
-                # 2. 10 seconds wait karo (time badhana ho toh 10 ko 30 ya 60 kar dena)
                     await asyncio.sleep(60)
-                # 3. Dono messages delete kar do
-                     try:
-                    await reply_msg.delete()  # Bot ka message delete karega
-                    await msg.delete()        # User ka search message delete karega
+                    try:
+                        await reply_msg.delete()  # Bot ka message delete karega
+                        await msg.delete()        # User ka search message delete karega
                     except Exception:
                         pass
                     return
