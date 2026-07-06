@@ -23,7 +23,7 @@ class script(object):
 Ex: Stree 2018,
     RRR 2022
        
-If No Result Is Found, Then Contact Admins... You will Get Your Movie </b>"""
+If No Result Is Found, Then Tell the name in @dhpcinesearch... You will Get Your Movie </b>"""
 
     ABOUT_TXT = """<b><blockquote>⍟───[ ᴍʏ ᴅᴇᴛᴀɪʟꜱ ]───⍟</blockquote>
     
