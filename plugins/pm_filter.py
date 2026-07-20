@@ -2569,7 +2569,7 @@ async def auto_filter(client, name, msg, reply_msg, ai_search, spoll=False):
                     await asyncio.sleep(60)
                     try:
                         await reply_msg.delete()  # Bot ka message delete karega
-                        await msg.delete()        # User ka search message delete karega
+                        await client.delete_messages(chat_id=msg.chat.id, message_ids=msg.id)
                     except Exception:
                         pass
                     return
