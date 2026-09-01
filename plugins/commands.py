@@ -121,7 +121,9 @@ async def start(client, message):
                     await db.set_msg_command(message.from_user.id, com=message.command[1])
                     text = "**🕵️ ʏᴏᴜ ᴅᴏ ɴᴏᴛ ᴊᴏɪɴ ᴍʏ ʙᴀᴄᴋᴜᴘ ᴄʜᴀɴɴᴇʟ ғɪʀsᴛ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ**"
             else:
-                text = "**🕵️ ʏᴏᴜ ᴅᴏ ɴᴏᴛ ᴊᴏɪɴ ᴍʏ ʙᴀᴄᴋᴜᴘ ᴄʜᴀɴɴᴇʟ ғɪʀsᴛ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ ᴛʜᴇɴ ᴛʀʏ ᴀɢᴀɪɴ**"
+                text = "**🕵️ FIRST JOIN THIS CHANNEL, THEN TRY AGAIN
+                             पहले BACKUP CHANNEL JOIN करो, फिर दोबारा TRY करना 
+                             👇👇👇**"
             await client.send_message(
                 chat_id=message.from_user.id,
                 text=text,
