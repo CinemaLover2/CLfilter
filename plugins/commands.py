@@ -114,16 +114,16 @@ async def start(client, message):
                         btn.append([InlineKeyboardButton("↻ ᴛʀʏ ᴀɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
             if REQUEST_TO_JOIN_MODE == True:
                 if TRY_AGAIN_BTN == True:
-                    text = "**🕵️FIRST JOIN THIS CHANNEL, THEN TRY AGAIN
+                    text = """**🕵️FIRST JOIN THIS CHANNEL, THEN TRY AGAIN
                                पहले BACKUP CHANNEL JOIN करो, फिर दोबारा TRY करना 
-                                👇👇👇**"
+                                👇👇👇**"""
                 else:
                     await db.set_msg_command(message.from_user.id, com=message.command[1])
                     text = "**🕵️ ʏᴏᴜ ᴅᴏ ɴᴏᴛ ᴊᴏɪɴ ᴍʏ ʙᴀᴄᴋᴜᴘ ᴄʜᴀɴɴᴇʟ ғɪʀsᴛ ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ**"
             else:
-                text = "**🕵️ FIRST JOIN THIS CHANNEL, THEN TRY AGAIN
+                text = """**🕵️ FIRST JOIN THIS CHANNEL, THEN TRY AGAIN
                              पहले BACKUP CHANNEL JOIN करो, फिर दोबारा TRY करना 
-                             👇👇👇**"
+                             👇👇👇**"""
             await client.send_message(
                 chat_id=message.from_user.id,
                 text=text,
