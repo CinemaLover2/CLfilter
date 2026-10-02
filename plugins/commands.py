@@ -20,38 +20,6 @@ logger = logging.getLogger(__name__)
 BATCH_FILES = {}
 join_db = JoinReqs
 
-from info import ADMINS
-from database.users_chats_db import db
-
-@Client.on_message(filters.command("vip") & filters.user(ADMINS))
-async def add_vip_user(client, message):
-    if len(message.command) < 2:
-        return await message.reply_text("<b>Usage:</b> <code>/vip &lt;user_id&gt;</code>")
-    try:
-        user_id = int(message.command[1])
-        await db.col.update_one(
-            {"id": user_id},
-            {"$set": {"plan_tier": "vip"}},
-            upsert=True
-        )
-        await message.reply_text(f"✅ User <code>{user_id}</code> set to <b>VIP Plan</b> (2 files/24h).")
-    except Exception as e:
-        await message.reply_text(f"Error: {e}")
-
-@Client.on_message(filters.command("advanced") & filters.user(ADMINS))
-async def add_advanced_user(client, message):
-    if len(message.command) < 2:
-        return await message.reply_text("<b>Usage:</b> <code>/advanced &lt;user_id&gt;</code>")
-    try:
-        user_id = int(message.command[1])
-        await db.col.update_one(
-            {"id": user_id},
-            {"$set": {"plan_tier": "advanced"}},
-            upsert=True
-        )
-        await message.reply_text(f"✅ User <code>{user_id}</code> set to <b>Advanced Plan</b> (3 files/24h).")
-    except Exception as e:
-        await message.reply_text(f"Error: {e}")
         
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
