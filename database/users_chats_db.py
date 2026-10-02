@@ -17,9 +17,9 @@ mydb = my_client["referal_user"]
 async def check_user_limit(user_id):
     """
     Limits:
-    - Default (Free): 2 file per 24 hours
-    - VIP: 4 files per 24 hours
-    - ADVANCED: 5 files per 24 hours
+    - Default (Free): 1 file per 24 hours
+    - VIP: 2 files per 24 hours
+    - ADVANCED: 3 files per 24 hours
     """
     now = datetime.utcnow()
     user = await users_db.find_one({"user_id": user_id})
