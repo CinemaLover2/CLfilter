@@ -9,62 +9,9 @@ from pymongo import MongoClient
 from info import DATABASE_NAME, USER_DB_URI, OTHER_DB_URI, CUSTOM_FILE_CAPTION, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, BUTTON_MODE, SPELL_CHECK_REPLY, PROTECT_CONTENT, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, SHORTLINK_API, SHORTLINK_URL, SHORTLINK_MODE, TUTORIAL, IS_TUTORIAL
 import time
 import datetime
-from datetime import datetime, timedelta
 
 my_client = MongoClient(OTHER_DB_URI)
 mydb = my_client["referal_user"]
-
-async def check_user_limit(user_id):
-    """
-    Limits:
-    - Default (Free): 1 file per 24 hours
-    - VIP: 2 files per 24 hours
-    - ADVANCED: 3 files per 24 hours
-    """
-    now = datetime.utcnow()
-    user = await users_db.col.find_one({"user_id": user_id})
-
-    # If new user record doesn't exist
-    if not user:
-        await users_db.col.insert_one({
-            "user_id": user_id,
-            "plan_tier": "free",
-            "daily_count": 2,
-            "first_download_time": now
-        })
-        return True, 1, 1
-
-    plan = user.get("plan_tier", "free")
-    if plan == "advanced":
-        max_files = 5
-    elif plan == "vip":
-        max_files = 4
-    else:
-        max_files = 2
-
-    first_dl_time = user.get("first_download_time", now)
-    
-    # Check if 24 hours have passed since the first download
-    if now - first_dl_time >= timedelta(hours=24):
-        # Reset 24-hour window
-        await users_col.update_one(
-            {"user_id": user_id},
-            {"$set": {"first_download_time": now, "daily_count": 1}}
-        )
-        return True, 1, max_files
-
-    current_count = user.get("daily_count", 0)
-
-    # If limit reached
-    if current_count >= max_files:
-        return False, current_count, max_files
-
-    # Otherwise increment count
-    await users_col.update_one(
-        {"user_id": user_id},
-        {"$inc": {"daily_count": 1}}
-    )
-    return True, current_count + 1, max_files
     
 async def referal_add_user(user_id, ref_user_id):
     user_db = mydb[str(user_id)]
