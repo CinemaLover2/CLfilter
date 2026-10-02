@@ -22,11 +22,11 @@ async def check_user_limit(user_id):
     - ADVANCED: 3 files per 24 hours
     """
     now = datetime.utcnow()
-    user = await users_db.find_one({"user_id": user_id})
+    user = await users_db.col.find_one({"user_id": user_id})
 
     # If new user record doesn't exist
     if not user:
-        await users_db.insert_one({
+        await users_db.col.insert_one({
             "user_id": user_id,
             "plan_tier": "free",
             "daily_count": 2,
