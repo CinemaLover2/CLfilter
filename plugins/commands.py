@@ -29,7 +29,7 @@ async def add_vip_user(client, message):
         return await message.reply_text("<b>Usage:</b> <code>/vip &lt;user_id&gt;</code>")
     try:
         user_id = int(message.command[1])
-        await db.update_one(
+        await db.col.update_one(
             {"id": user_id},
             {"$set": {"plan_tier": "vip"}},
             upsert=True
@@ -44,7 +44,7 @@ async def add_advanced_user(client, message):
         return await message.reply_text("<b>Usage:</b> <code>/advanced &lt;user_id&gt;</code>")
     try:
         user_id = int(message.command[1])
-        await db.update_one(
+        await db.col.update_one(
             {"id": user_id},
             {"$set": {"plan_tier": "advanced"}},
             upsert=True
