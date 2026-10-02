@@ -1343,6 +1343,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
         files_ = await get_file_details(file_id)
         if not files_:
             return await query.answer('Nᴏ sᴜᴄʜ ғɪʟᴇ ᴇxɪsᴛ.')
+ # ==================== STEP 3: LIMIT CHECK START ====================
+        from database.users_chats_db import check_user_limit
+
+        allowed, count, max_files = await check_user_limit(query.from_user.id)
+        if not allowed:
+             limit_text = (
+                  "⚠️ Daily Limit Reached!\n\n"
+                  "You can only get 1 movie in 24 hours on the Free Plan.\n\n"
+                  "Available Plans:\n"
+                  "• VIP (₹5): 2 files / 24 hrs\n"
+                  "• Advanced (₹9): 3 files / 24 hrs\n\n"
+                  "Contact Admin to upgrade: @Deba_2006"
+             )
+             return await query.answer(limit_text, show_alert=True)
+    # ==================== STEP 3: LIMIT CHECK END ======================
+
         files = files_
         files["file_name"] = files["file_name"].replace("@VJ_Bots", "").strip()
         title = files["file_name"]
