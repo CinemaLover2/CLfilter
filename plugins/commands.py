@@ -264,7 +264,7 @@ async def start(client, message):
             if not allowed:
                 await sts.edit(
                     "⛔ <b>Your 24-hour file limit has been reached.</b>\n\n"
-                    "Please contact @Abv_384 to upgrade your plan."
+                    "Please contact @Deba_2006 to upgrade your plan."
                 )
                 break
             title = msg.get("title")
