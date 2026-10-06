@@ -13,8 +13,17 @@ from database.join_reqs import JoinReqs
 from info import CLONE_MODE, OWNER_LNK, REACTIONS, CHANNELS, REQUEST_TO_JOIN_MODE, TRY_AGAIN_BTN, ADMINS, SHORTLINK_MODE, PREMIUM_AND_REFERAL_MODE, STREAM_MODE, AUTH_CHANNEL, REFERAL_PREMEIUM_TIME, REFERAL_COUNT, PAYMENT_TEXT, PAYMENT_QR, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT, CHNL_LNK, GRP_LNK, REQST_CHANNEL, SUPPORT_CHAT, MAX_B_TN, VERIFY, SHORTLINK_API, SHORTLINK_URL, TUTORIAL, VERIFY_TUTORIAL, IS_TUTORIAL, URL
 from utils import get_settings, pub_is_subscribed, get_size, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, get_shortlink, get_tutorial, get_seconds
 from database.connections_mdb import active_connection
+from database.file_quota import (
+    check_file,
+    set_plan,
+    remove_plan,
+    get_plan,
+    get_quota,
+    LIMIT_MESSAGE
+)
 from urllib.parse import quote_plus
 from TechVJ.util.file_properties import get_name, get_hash, get_media_file_size
+from database.file_quota import get_users_by_plan
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
@@ -1296,6 +1305,112 @@ async def fsub(client, message):
     await save_group_settings(grpid, 'fsub', fsub_ids)
     await message.reply_text(f"<b>Successfully set force channels for {title} to\n\n{channels}\n\nYou can remove it by /nofsub.</b>")
         
+@Client.on_message(filters.command("setplan") & filters.user(ADMINS))
+async def setplan_cmd(client, message):
+
+    if len(message.command) != 3:
+        return await message.reply_text(
+            "<b>Usage:</b>\n"
+            "/setplan USER_ID PLAN\n\n"
+            "<b>Plans:</b>\n"
+            "regular\n"
+            "premium\n"
+            "advanced\n"
+            "vip\n\n"
+            "<b>Example:</b>\n"
+            "/setplan 123456789 premium"
+        )
+
+    try:
+        user_id = int(message.command[1])
+    except ValueError:
+        return await message.reply_text("❌ Invalid User ID.")
+
+    plan = message.command[2].lower()
+
+    if plan not in ["regular", "premium", "advanced", "vip"]:
+        return await message.reply_text(
+            "❌ Invalid plan.\n\n"
+            "Use: regular, premium, advanced or vip."
+        )
+
+    await set_plan(user_id, plan)
+
+    limits = {
+        "regular": "2 files / 24 hours",
+        "premium": "3 files / 24 hours",
+        "advanced": "5 files / 24 hours",
+        "vip": "Unlimited"
+    }
+
+    await message.reply_text(
+        f"✅ <b>Plan updated</b>\n\n"
+        f"👤 User: <code>{user_id}</code>\n"
+        f"📦 Plan: <b>{plan.title()}</b>\n"
+        f"📁 Limit: <b>{limits[plan]}</b>"
+    )
+
+
+@Client.on_message(filters.command("removeplan") & filters.user(ADMINS))
+async def removeplan_cmd(client, message):
+
+    if len(message.command) != 2:
+        return await message.reply_text(
+            "<b>Usage:</b>\n"
+            "/removeplan USER_ID"
+        )
+
+    try:
+        user_id = int(message.command[1])
+    except ValueError:
+        return await message.reply_text("❌ Invalid User ID.")
+
+    await remove_plan(user_id)
+
+    await message.reply_text(
+        f"✅ User <code>{user_id}</code> is now on "
+        f"<b>Regular</b> plan.\n\n"
+        f"Limit: <b>2 files / rolling 24 hours</b>"
+    )
+
+
+@Client.on_message(filters.command("quota") & filters.user(ADMINS))
+async def quota_cmd(client, message):
+
+    if len(message.command) != 2:
+        return await message.reply_text(
+            "<b>Usage:</b>\n"
+            "/quota USER_ID"
+        )
+
+    try:
+        user_id = int(message.command[1])
+    except ValueError:
+        return await message.reply_text("❌ Invalid User ID.")
+
+    plan, remaining, used = await get_quota(user_id)
+
+    await message.reply_text(
+        f"👤 <b>User:</b> <code>{user_id}</code>\n"
+        f"📦 <b>Plan:</b> {plan.title()}\n"
+        f"📁 <b>Used:</b> {used}\n"
+        f"📊 <b>Remaining:</b> {remaining}"
+    )
+
+
+@Client.on_message(filters.command("myquota"))
+async def myquota_cmd(client, message):
+
+    user_id = message.from_user.id
+
+    plan, remaining, used = await get_quota(user_id)
+
+    await message.reply_text(
+        f"📦 <b>Your plan:</b> {plan.title()}\n"
+        f"📁 <b>Used:</b> {used}\n"
+        f"📊 <b>Remaining:</b> {remaining}"
+    )
+
 
 @Client.on_message(filters.command("add_premium"))
 async def give_premium_cmd_handler(client, message):
@@ -1349,6 +1464,59 @@ async def remove_premium_cmd_handler(client, message):
             await message.reply_text("Invalid time format.'")
     else:
         await message.reply_text("Usage: /remove_premium user_id")
+
+@Client.on_message(filters.command("premium") & filters.user(ADMINS))
+async def premium_users_cmd(client, message):
+
+    users = await get_users_by_plan("premium")
+
+    if not users:
+        return await message.reply_text(
+            "📭 <b>No Premium users found.</b>"
+        )
+
+    text = "💎 <b>Premium Users</b>\n\n"
+
+    for i, user_id in enumerate(users, 1):
+        text += f"{i}. <code>{user_id}</code>\n"
+
+    await message.reply_text(text)
+
+
+@Client.on_message(filters.command("advanced") & filters.user(ADMINS))
+async def advanced_users_cmd(client, message):
+
+    users = await get_users_by_plan("advanced")
+
+    if not users:
+        return await message.reply_text(
+            "📭 <b>No Advanced users found.</b>"
+        )
+
+    text = "🚀 <b>Advanced Users</b>\n\n"
+
+    for i, user_id in enumerate(users, 1):
+        text += f"{i}. <code>{user_id}</code>\n"
+
+    await message.reply_text(text)
+
+
+@Client.on_message(filters.command("vip") & filters.user(ADMINS))
+async def vip_users_cmd(client, message):
+
+    users = await get_users_by_plan("vip")
+
+    if not users:
+        return await message.reply_text(
+            "📭 <b>No VIP users found.</b>"
+        )
+
+    text = "👑 <b>VIP Users</b>\n\n"
+
+    for i, user_id in enumerate(users, 1):
+        text += f"{i}. <code>{user_id}</code>\n"
+
+    await message.reply_text(text)
         
 @Client.on_message(filters.command("plan"))
 async def plans_cmd_handler(client, message): 
