@@ -16,7 +16,11 @@ PLAN_LIMITS = {
 
 LIMIT_MESSAGE = (
     "<b>⛔ Your 24-hour file limit has been reached.</b>\n\n"
-    "Please contact @Abv_384 to upgrade your plan."
+    "Regular users: 2 files per 24 hours"
+    "Premium users: 3 files per 24 hours"
+    "Advanced users: 5 files per 24 hours"
+    "Vip users: unlimited files per 24 hour\n\n"
+    "Please contact @Deba_2006 to upgrade your plan."
 )
 
 
