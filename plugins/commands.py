@@ -264,6 +264,10 @@ async def start(client, message):
             if not allowed:
                 await sts.edit(
                     "⛔ <b>Your 24-hour file limit has been reached.</b>\n\n"
+                    "Regular users: 2 files per 24 hours"
+                    "Premium users: 3 files per 24 hours(₹5)"
+                    "Advanced users: 5 files per 24 hours(₹9)"
+                    "Vip users: unlimited files per 24 hour (₹19)\n\n"
                     "Please contact @Deba_2006 to upgrade your plan."
                 )
                 break
