@@ -266,11 +266,13 @@ async def start(client, message):
                     "⛔ <b>Daily download limit reached.</b>\n"  
                     "⛔ <b>आपकी दैनिक डाउनलोड सीमा पूरी हो गई है।</b>\n\n"  
                     "📦 <b>Available Plans:</b>\n"  
-                    "• 🆓 <b>Regular</b> — 2 files / 24 hours — Free\n"  
+                    "• 🆓 <b>Regular</b> — 1 file / 24 hours — Free\n"  
                     "• 💎 <b>Premium</b> — 3 files / 24 hours — ₹5/month\n"  
                     "• 🚀 <b>Advanced</b> — 5 files / 24 hours — ₹9/month\n"  
                     "• 👑 <b>VIP</b> — Unlimited files / 24 hours — ₹15/month\n\n"  
-                    "📩 Please contact @Deba_2006 to upgrade your plan."
+                    "📩 Please contact @Deba_2006 to upgrade your plan.\n"
+                    "If you don't want to upgrade, then wait for 24 hours to get another file\n"
+                    "यदि आप अपग्रेड नहीं करना चाहते हैं, तो दूसरी फ़ाइल पाने के लिए 24 घंटे प्रतीक्षा करें।\n"
                 )
                 break
             title = msg.get("title")
