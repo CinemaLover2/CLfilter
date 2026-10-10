@@ -270,7 +270,7 @@ async def start(client, message):
                     "• 💎 <b>Premium</b> — 3 files / 24 hours — ₹5/month\n"  
                     "• 🚀 <b>Advanced</b> — 5 files / 24 hours — ₹9/month\n"  
                     "• 👑 <b>VIP</b> — Unlimited files / 24 hours — ₹15/month\n\n"  
-                    "📩 Please contact @Deba_2006 to upgrade your plan.\n"
+                    "📩 Please contact @Deba_2006\n"
                     "If you don't want to upgrade, then wait for 24 hours to get another file\n"
                     "यदि आप अपग्रेड नहीं करना चाहते हैं, तो दूसरी फ़ाइल पाने के लिए 24 घंटे प्रतीक्षा करें।\n"
                 )
